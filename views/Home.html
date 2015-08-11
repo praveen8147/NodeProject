@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Node Project</title>
+  <link href="stylesheets/bootstaper.css" rel="stylesheet" type="text/css" />
+  <link href="stylesheets/bootstrap-cerulean.css" rel="stylesheet" type="text/css" />
+  <link href="stylesheets/charisma-app.css" rel="stylesheet" type="text/css" />
+  <link href="stylesheets/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+  <style>
+  label.error {
+    color: red;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <!--Main Div-->
+    <div class="row-fluid">
+      <!--AlignmentDiv-->
+      <div class="row-fluid sortable ui-sortable" id="AddPanel">
+        <!--FirstRow-->
+        <div class="box span8">
+          <!--span-->
+          <div class="box-header well">
+            <h2><i class="icon-edit"></i>ADD PRODUCT DETAILS</h2>
+          </div>
+          <div class="box-content">
+            <!--content-->
+            <form id="formApp" method="post" action="/add_Data" class="form-horizontal">
+              <fieldset>
+                <div class="control-group">
+                  <label class="control-label" for="focusedInput">Product Name</label>
+                  <div class="controls">
+                    <input class="input-xlarge focused" name="Name" type="text" id="Name" tabindex="1">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="focusedInput">Category</label>
+                  <div class="controls">
+                    <select id="Category" name="Category">
+                      <option value="Cotton">Cotton</option>
+                      <option value="Nylon">Nylon</option>
+                      <option value="Silk">Silk</option>
+                      <option value="Whipcord">Whipcord</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="focusedInput">Price</label>
+                  <div class="controls">
+                    <input class="input-xlarge focused" name="Price" type="text" id="Price" tabindex="1">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="selectError3" class="chzn-done">Status</label>
+                  <div class="controls">
+                    <select id="ddlActive" name="ddlActive">
+                      <option value="Available">Yes</option>
+                      <option value="Out Of Stock">No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <input id="btnSubmit" class="btn btn-primary" value="Add " onclick="return validateControls(this.form);" type="submit" />
+                  <input id="clear" class="btn btn-primary" value="Clear" type="reset" onclick="clearForm()" />
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <!--/Content-->
+        </div>
+        <!--/Span-->
+      </div>
+      <!--/FirstRow-->
+      <!--/SecondRow-->
+      <form id="formCategory" method="post" action="/get_product" class="form-horizontal">
+        <div class="controls">
+          <select id="Category" name="Category">
+            <option value="Cotton">Cotton</option>
+            <option value="Nylon">Nylon</option>
+            <option value="Silk">Silk</option>
+            <option value="Whipcord">Whipcord</option>
+          </select>
+          <input id="btnSubmitNew" class="btn btn-primary" value="Display" type="submit" />
+        </div>
+      </form>
+      <div class="row-fluid sortable ui-sortable">
+        <!--ThirdRow-->
+        <div class="box span6">
+          <!--span-->
+          <div class="box-header well" data-original-title>
+            <h2><i class="icon-edit"></i>DISPLAY PRODUCT DETAILS</h2>
+          </div>
+          <div class="box-content">
+            <!--Content-->
+            <table class="table table-bordered bootstrap-datatable datatable" id="tblTest">
+              <thead>
+                <tr>
+                  <th style="display:none">_id</th>
+                  <th>ProductName</th>
+                  <th>ProductCategory</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each data}}
+                <tr>
+                  <td style="display:none">_id</td>
+                  <td>{{this.Name}}</td>
+                  <td>{{this.Category}}</td>
+                  <td>{{this.Price}}</td>
+                  <td>{{this.Status}}</td>
+                  <td class="center">
+                    <a href="DeleteAppRecord/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you want to remove this item?')">
+                      <i class="icon-trash icon-white"></i> Delete
+                    </a>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--/span-->
+      </div>
+      <!--/Thirdrow-->
+    </div>
+    <!--/Alignment Div-->
+    <hr />
+  </div>
+  <!--/Main Div-->
+  <!-- ====external javascript==== -->
+  <script src="js/jquery-1.7.2.min.js"></script>
+  <script src="js/jquery-ui-1.8.21.custom.min.js"></script>
+  <script src="js/validate.js"></script>
+  <script src="js/myscript.js"></script>
+</body>
+
+</html>
