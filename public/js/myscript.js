@@ -6,14 +6,14 @@ $(document).ready(function() {
 
   $("#formApp").validate({
     rules: {
-      Name: {
+      email: {
         required: true
       },
 
-      Category: {
+      subject: {
         required: true
       },
-      Price: {
+      content: {
         required: true
 
       }
@@ -23,7 +23,7 @@ $(document).ready(function() {
   });
   $('#btnSubmit').click(function() {
     if ($("#formApp").valid()) {
-      alert('Product Added!!');
+      alert('Email Sent!!');
       return;
     }
   });

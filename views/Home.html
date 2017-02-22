@@ -25,47 +25,49 @@
         <div class="box span8">
           <!--span-->
           <div class="box-header well">
-            <h2><i class="icon-edit"></i>ADD PRODUCT DETAILS</h2>
+            <h2><i class="icon-edit"></i> Compose New Mail</h2>
           </div>
           <div class="box-content">
             <!--content-->
-            <form id="formApp" method="post" action="/add_Data" class="form-horizontal">
+            <form id="formApp" method="post" action="/send" class="form-horizontal">
               <fieldset>
                 <div class="control-group">
-                  <label class="control-label" for="focusedInput">Product Name</label>
+                  <label class="control-label" for="focusedInput">Email Id</label>
                   <div class="controls">
-                    <input class="input-xlarge focused" name="Name" type="text" id="Name" tabindex="1">
+                    <input class="input-xlarge focused" name="email" type="text" id="email" tabindex="1">
                   </div>
                 </div>
                 <div class="control-group">
-                  <label class="control-label" for="focusedInput">Category</label>
+                  <label class="control-label" for="focusedInput">Subject</label>
                   <div class="controls">
-                    <select id="Category" name="Category">
-                      <option value="Cotton">Cotton</option>
-                      <option value="Nylon">Nylon</option>
-                      <option value="Silk">Silk</option>
-                      <option value="Whipcord">Whipcord</option>
-                    </select>
+                    <input class="input-xlarge focused" name="subject" type="text" id="subject" tabindex="1">
                   </div>
                 </div>
                 <div class="control-group">
-                  <label class="control-label" for="focusedInput">Price</label>
-                  <div class="controls">
-                    <input class="input-xlarge focused" name="Price" type="text" id="Price" tabindex="1">
-                  </div>
-                </div>
-                <div class="control-group">
-                  <label class="control-label" for="selectError3" class="chzn-done">Status</label>
+                  <label class="control-label" for="selectError3" class="chzn-done">Body Template</label>
                   <div class="controls">
                     <select id="ddlActive" name="ddlActive">
-                      <option value="Available">Yes</option>
-                      <option value="Out Of Stock">No</option>
+                      <option value="option1">option1</option>
+                      <option value="option2">option2</option>
                     </select>
                   </div>
                 </div>
+                <div class="control-group">
+                  <label class="control-label" for="focusedInput">Content</label>
+                 <div class="controls">
+                   <textarea class="input-xlarge focused" name="content" id="content"></textarea>
+                 </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="focusedInput">Attachments</label>
+                  <div class="controls">
+                    <input class="input-xlarge focused" name="Attachment" type="Attachment" id="Price" tabindex="1">
+                  </div>
+                </div>
+                
                 <div class="form-actions">
-                  <input id="btnSubmit" class="btn btn-primary" value="Add " onclick="return validateControls(this.form);" type="submit" />
-                  <input id="clear" class="btn btn-primary" value="Clear" type="reset" onclick="clearForm()" />
+                  <input id="btnSubmit" class="btn btn-primary" value="Send " onclick="return validateControls(this.form);" type="submit" />
+                  <input id="clear" class="btn btn-primary" value="Reset" type="reset" onclick="clearForm()" />
                 </div>
               </fieldset>
             </form>
@@ -78,11 +80,11 @@
       <!--/SecondRow-->
       <form id="formCategory" method="post" action="/get_product" class="form-horizontal">
         <div class="controls">
+         <label class="control-label" for="focusedInput">Filter By Subject </label>
           <select id="Category" name="Category">
-            <option value="Cotton">Cotton</option>
-            <option value="Nylon">Nylon</option>
-            <option value="Silk">Silk</option>
-            <option value="Whipcord">Whipcord</option>
+           {{#each data}}
+            <option value="Cotton">{{this.Subject}}</option>
+            {{/each}}
           </select>
           <input id="btnSubmitNew" class="btn btn-primary" value="Display" type="submit" />
         </div>
@@ -92,7 +94,7 @@
         <div class="box span6">
           <!--span-->
           <div class="box-header well" data-original-title>
-            <h2><i class="icon-edit"></i>DISPLAY PRODUCT DETAILS</h2>
+            <h2><i class="icon-edit"></i> Inbox</h2>
           </div>
           <div class="box-content">
             <!--Content-->
@@ -100,21 +102,25 @@
               <thead>
                 <tr>
                   <th style="display:none">_id</th>
-                  <th>ProductName</th>
-                  <th>ProductCategory</th>
-                  <th>Price</th>
-                  <th>Status</th>
-                  <th>Action</th>
+                  <th>Subject</th>
+                  <th>Body</th>
+                  <th>Time</th>
+                  <th>Replay</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
                 {{#each data}}
                 <tr>
                   <td style="display:none">_id</td>
-                  <td>{{this.Name}}</td>
-                  <td>{{this.Category}}</td>
-                  <td>{{this.Price}}</td>
-                  <td>{{this.Status}}</td>
+                  <td>{{this.Subject}}</td>
+                  <td>{{this.Content}}</td>
+                  <td>{{this.Time}}</td>
+                  <td class="center">
+                    <a href="Replay/{{this._id}}" class="btn btn-primary">
+                      <i class="icon-trash icon-white"></i> Replay
+                    </a>
+                  </td>
                   <td class="center">
                     <a href="DeleteAppRecord/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you want to remove this item?')">
                       <i class="icon-trash icon-white"></i> Delete
